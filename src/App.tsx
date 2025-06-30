@@ -6,13 +6,13 @@ import { BrowserRouter } from 'react-router-dom';
 function App() {
   return (
     <BrowserRouter>
-        <div className="">
-            <Header/>
-            <main className='pt-12 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800'>
-                <MainRouter/>
-            </main>
-            <Footer/>
-        </div>
+      <>
+        <Header />
+        <main className='pt-24 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800'>
+          <MainRouter />
+        </main>
+        <Footer />
+      </>
     </BrowserRouter>
   );
 }

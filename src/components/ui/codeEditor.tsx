@@ -9,7 +9,7 @@ import "highlight.js/styles/github-dark.css"
 
 hljs.registerLanguage("typescript", typescript)
 
-export default function CodeEditor() {
+export default function CodingPanel() {
     const [displayedCode, setDisplayedCode] = useState("")
     const [currentLine, setCurrentLine] = useState(0)
     const [isTyping, setIsTyping] = useState(false)
@@ -75,8 +75,6 @@ export default function CodeEditor() {
         "  )",
         "}",
     ]
-
-
 
     const handleMouseMove = (e: React.MouseEvent) => {
         if (!containerRef.current) return

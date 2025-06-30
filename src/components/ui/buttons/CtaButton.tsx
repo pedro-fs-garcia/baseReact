@@ -63,8 +63,6 @@ export default function CtaButton({
     // Gerar URL baseado no tipo de contato
     const generateUrl = () => {
         const phone = contactInfo.whatsapp;
-        // const url = new URL(`https://web.whatsapp.com/send`);
-        // url.searchParams.append('phone', phone);
         const url = new URL(`https://wa.me/${phone}`);
         url.searchParams.append('text', message);
         return url.toString();
@@ -78,7 +76,6 @@ export default function CtaButton({
                 transition={{ duration: 0.2 }}
             >
                 <FaWhatsapp className={iconSizes[size]} />
-                {/* <MessageCircle className={iconSizes[size]} /> */}
             </motion.div>
         )
     }
