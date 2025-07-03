@@ -8,7 +8,7 @@ function App() {
     <BrowserRouter>
       <>
         <Header />
-        <main className="main-container">
+        <main className="main-container bg-background text-text">
           <MainRouter />
         </main>
         <Footer />
