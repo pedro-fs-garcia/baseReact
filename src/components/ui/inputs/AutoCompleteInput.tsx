@@ -1,19 +1,26 @@
 import React, { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Search, ChevronDown, Loader2, Check } from "lucide-react";
 import BasicInput from "./BasicInput";
 
 export type AutocompleteSuggestion = {
   id: string | number;
   label: string;
+  icon?: React.ReactNode;
+  description?: string;
 };
 
 type AutocompleteProps = {
-  label: string;
+  label?: string;
   placeholder?: string;
   required?: boolean;
   suggestions: AutocompleteSuggestion[];
   isLoading?: boolean;
   value: AutocompleteSuggestion | null;
   onSelect: (item: AutocompleteSuggestion) => void;
+  error?: string;
+  size?: 'sm' | 'md' | 'lg';
+  className?: string;
 };
 
 export default function AutoCompleteInput ({
@@ -24,6 +31,9 @@ export default function AutoCompleteInput ({
   isLoading,
   value,
   onSelect,
+  error,
+  size = 'md',
+  className = '',
 }: AutocompleteProps) {
   const [inputValue, setInputValue] = useState(value?.label || "");
   const [isOpen, setIsOpen] = useState(false);
@@ -79,7 +89,7 @@ export default function AutoCompleteInput ({
   };
 
   return (
-    <div className="relative" ref={dropdownRef}>
+    <div className={`relative ${className}`} ref={dropdownRef}>
       <BasicInput
         label={label}
         required={required}
@@ -88,89 +98,68 @@ export default function AutoCompleteInput ({
         onChange={handleChange}
         onKeyDown={handleKeyDown}
         onFocus={() => setIsOpen(true)}
-        leftIcon={
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <circle cx="12" cy="12" r="10"></circle>
-            <path d="M2 12h20"></path>
-          </svg>
-        }
+        error={error}
+        size={size}
+        leftIcon={<Search size={16} />}
         rightIcon={
           isLoading ? (
-            <svg
-              className="animate-spin h-4 w-4"
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M21 12a9 9 0 1 1-6.219-8.56"></path>
-            </svg>
+            <Loader2 size={16} className="animate-spin" />
           ) : (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="m7 15 5 5 5-5"></path>
-              <path d="m7 9 5-5 5 5"></path>
-            </svg>
+            <ChevronDown 
+              size={16} 
+              className={`transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+            />
           )
         }
       />
 
-      {isOpen && suggestions.length > 0 && (
-        <div className="absolute z-50 w-full mt-1 rounded-md border border-gray-200 bg-white shadow-md">
-          <div className="max-h-60 overflow-auto p-1">
-            {suggestions.map((item, index) => (
-              <div
-                key={item.id}
-                className={`flex items-center px-2 py-1.5 text-sm rounded-sm relative cursor-pointer select-none ${
-                  index === highlightedIndex ? "bg-gray-100" : ""
-                } ${value?.id === item.id ? "font-medium" : ""} hover:bg-gray-100`}
-                onClick={() => handleSelect(item)}
-                onMouseEnter={() => setHighlightedIndex(index)}
-              >
-                {value?.id === item.id && (
-                  <svg
-                    className="mr-2 h-4 w-4 opacity-100"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                  </svg>
-                )}
-                <span>{item.label}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+      <AnimatePresence>
+        {isOpen && suggestions.length > 0 && (
+          <motion.div
+            className="absolute z-50 w-full mt-1 bg-card border border-light rounded-lg shadow-lg"
+            initial={{ opacity: 0, y: -10, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -10, scale: 0.95 }}
+            transition={{ duration: 0.15 }}
+          >
+            <div className="max-h-60 overflow-auto p-1">
+              {suggestions.map((item, index) => (
+                <motion.div
+                  key={item.id}
+                  className={`
+                    flex items-center gap-3 px-3 py-2.5 text-sm rounded-md
+                    cursor-pointer select-none transition-colors duration-150
+                    ${index === highlightedIndex ? 'bg-background-100' : ''}
+                    ${value?.id === item.id ? 'bg-primary/10 text-primary' : 'hover:bg-background-100'}
+                  `}
+                  onClick={() => handleSelect(item)}
+                  onMouseEnter={() => setHighlightedIndex(index)}
+                  whileHover={{ backgroundColor: 'var(--color-background-100)' }}
+                >
+                  {item.icon && (
+                    <span className="flex-shrink-0 text-tertiary">
+                      {item.icon}
+                    </span>
+                  )}
+                  
+                  <div className="flex-1 min-w-0">
+                    <div className="font-medium">{item.label}</div>
+                    {item.description && (
+                      <div className="text-xs text-tertiary truncate">
+                        {item.description}
+                      </div>
+                    )}
+                  </div>
+
+                  {value?.id === item.id && (
+                    <Check size={16} className="flex-shrink-0 text-primary" />
+                  )}
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

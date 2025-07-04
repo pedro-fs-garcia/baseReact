@@ -1,10 +1,7 @@
 import { Mail, MapPin, Phone } from "lucide-react"
-import { contactInfo, socials } from "../data/contactInfo"
+import { contactInfo, socials } from "../../data/contactInfo"
 import { formatAddress } from "@/utils/contactInfoUtils"
 import { services } from "@/data/services"
-
-
-const socialMediaIcons = "hover:text-white transition-colors"
 
 const footerNavigation = [
     {route: "#", label:"início"},
@@ -27,18 +24,18 @@ export default function Footer() {
     const currentYear = new Date().getFullYear()
 
     return (
-        <footer className="bg-gray-900 text-gray-300 pt-16 pb-8">
+        <footer className="bg-surface text-secondary pt-16 pb-8">
             <div className="container mx-auto px-4">
                 <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
                     <div>
-                        <h3 className="text-xl font-bold text-white mb-4">{contactInfo.name}</h3>
+                        <h3 className="text-xl font-bold text-primary mb-4">{contactInfo.name}</h3>
                         <p className="mb-4">
                             {contactInfo.description}
                         </p>
                         <div className="flex space-x-4">
                             {socials.map((social) => (
                                 social.profile.length > 0 && (
-                                    <a href={social.profile} target="_blank" rel="noopener noreferrer" aria-label="Facebook" className={socialMediaIcons}>
+                                    <a href={social.profile} target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="hover:text-accent transition-colors">
                                         {social.icon}
                                     </a>
                                 )
@@ -47,11 +44,11 @@ export default function Footer() {
                     </div>
 
                     <div>
-                        <h3 className="text-xl font-bold text-white mb-4">Serviços</h3>
+                        <h3 className="text-xl font-bold text-primary mb-4">Serviços</h3>
                         <ul className="space-y-2">
                             {services.slice(0, 6).map((service) => (
                                 <li key={service.title}>
-                                    <a href="#servicos" className={socialMediaIcons}>
+                                    <a href="#servicos" className="hover:text-accent transition-colors">
                                         {service.title}
                                     </a>
                                 </li>
@@ -60,11 +57,11 @@ export default function Footer() {
                     </div>
 
                     <div>
-                        <h3 className="text-xl font-bold text-white mb-4">Links Rápidos</h3>
+                        <h3 className="text-xl font-bold text-primary mb-4">Links Rápidos</h3>
                         <ul className="space-y-2">
                             {footerNavigation.map((navItem) => (
                                 <li key={navItem.route}>
-                                    <a href={navItem.route} className={socialMediaIcons}>
+                                    <a href={navItem.route} className="hover:text-accent transition-colors">
                                         {navItem.label}
                                     </a>
                                 </li>
@@ -73,7 +70,7 @@ export default function Footer() {
                     </div>
 
                     <div>
-                        <h3 className="text-xl font-bold text-white mb-4">Contato</h3>
+                        <h3 className="text-xl font-bold text-primary mb-4">Contato</h3>
                         <ul className="space-y-4">
                             {contactRoutes.map((item) => (
                                 <li className="flex items-center" key={item.route}>
@@ -87,7 +84,7 @@ export default function Footer() {
                     </div>
                 </div>
 
-                <div className="border-t border-gray-800 pt-8 mt-8 text-sm text-gray-400">
+                <div className="border-t border-light pt-8 mt-8 text-sm text-tertiary">
                     <div className="flex flex-col md:flex-row justify-between items-center">
                         <p>&copy; {currentYear} {contactInfo.name}. Todos os direitos reservados.</p>
                     </div>

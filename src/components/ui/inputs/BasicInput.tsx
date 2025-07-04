@@ -1,61 +1,97 @@
-import React from "react";
+import React, { forwardRef } from "react";
 
 export type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   label?: string;
+  description?: string;
   required?: boolean;
-  leftIcon?: React.ReactNode;   // permite icone à esquerda
-  rightIcon?: React.ReactNode;  // permite icone à direita
+  leftIcon?: React.ReactNode;
+  rightIcon?: React.ReactNode;
   error?: string;
+  size?: 'sm' | 'md' | 'lg';
+  variant?: 'default' | 'filled';
 };
 
-export default function BasicInput ({
+const sizeClasses: Record<string, string> = {
+  sm: 'px-3 py-2 text-sm',
+  md: 'px-4 py-3 text-sm',
+  lg: 'px-4 py-3 text-base'
+};
+
+export default forwardRef<HTMLInputElement, InputProps>(function BasicInput({
   label,
+  description,
   required,
   leftIcon,
   rightIcon,
   error,
+  size = 'md',
+  variant = 'default',
   id,
   className,
+  disabled,
   ...props
-}: InputProps) {
+}, ref) {
   const inputId = id || label?.toLowerCase().replace(/\s/g, "-") || undefined;
 
   return (
-    <div className="grid gap-2">
+    <div className="space-y-2">
       {label && (
         <label
           htmlFor={inputId}
-          className="text-sm font-medium leading-none text-gray-700"
+          className={`
+            block text-sm font-medium cursor-pointer
+            ${disabled ? 'text-muted cursor-not-allowed' : 'text-secondary'}
+          `}
         >
-          {label} {required && <span className="text-red-500">*</span>}
+          {label} {required && <span className="text-error">*</span>}
         </label>
       )}
 
       <div className="relative">
         {leftIcon && (
-          <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">
+          <div className="absolute left-3 top-1/2 -translate-y-1/2 text-tertiary">
             {leftIcon}
           </div>
         )}
 
         <input
+          ref={ref}
           id={inputId}
-          className={`w-full h-12 ${leftIcon ? "pl-10" : "pl-3"} ${
-            rightIcon ? "pr-10" : "pr-3"
-          } py-2 rounded-md border border-gray-300 bg-white text-gray-900 shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-            error ? "border-red-500" : ""
-          } ${className || ""}`}
+          disabled={disabled}
+          className={`
+            input-base w-full
+            ${sizeClasses[size]}
+            ${leftIcon ? 'pl-10' : ''}
+            ${rightIcon ? 'pr-10' : ''}
+            ${variant === 'filled' ? 'bg-background-100' : ''}
+            ${disabled 
+              ? 'bg-background-100 text-muted cursor-not-allowed' 
+              : 'hover:border-medium focus-ring'
+            }
+            ${error ? 'border-error' : ''}
+            ${className || ''}
+          `}
           {...props}
         />
 
         {rightIcon && (
-          <div className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500">
+          <div className="absolute right-3 top-1/2 -translate-y-1/2 text-tertiary">
             {rightIcon}
           </div>
         )}
       </div>
 
-      {error && <span className="text-red-500 text-xs">{error}</span>}
+      {description && (
+        <p className={`text-xs ${disabled ? 'text-muted' : 'text-tertiary'}`}>
+          {description}
+        </p>
+      )}
+
+      {error && (
+        <p className="text-xs text-error">
+          {error}
+        </p>
+      )}
     </div>
   );
-};
+});

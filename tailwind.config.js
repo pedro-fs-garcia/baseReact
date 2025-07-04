@@ -17,7 +17,7 @@ module.exports = {
     
     // Textos
     'text-primary', 'text-secondary', 'text-tertiary', 'text-muted', 'text-inverse', 'text-on-primary',
-    'text-color-primary', 'text-color-secondary', 'text-color-accent',
+    'text-color-primary', 'text-color-secondary', 'text-color-accent', 'text-success', 'text-warning', 'text-error', 'text-info',
     
     // Bordas
     'border-subtle', 'border-light', 'border-medium', 'border-strong', 'border-focus',

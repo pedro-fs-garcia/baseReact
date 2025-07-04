@@ -96,32 +96,31 @@ html[data-theme="dark"] {
   --color-primary-900: #eff6ff;
   
   /* === PALETA SECUNDÁRIA === */
-  --color-secondary: #8b5cf6;
+  --color-secondary: #a5b4fc;
   --color-accent: #fbbf24;
   --color-accent-warm: #fb923c;
   
   /* === BACKGROUNDS === */
-  /* Escala de cinzas refinada com toque azulado */
-  --color-background: #0f0f23;        /* Background principal - azul noturno */
-  --color-background-50: #161629;     /* Cinza azulado ultra escuro */
-  --color-background-100: #1e1e37;    /* Cinza azulado muito escuro */
-  --color-background-200: #252547;    /* Cinza azulado escuro */
-  --color-background-300: #2d2d55;    /* Cinza azulado médio escuro */
-  --color-card: #161629;
-  --color-surface: #1e1e37;
-  --color-surface-elevated: #252547;
+  --color-background: #101122;        /* Fundo principal mais escuro */
+  --color-background-50: #18192b;     /* Cinza azulado ultra escuro */
+  --color-background-100: #23243a;    /* Cinza azulado muito escuro */
+  --color-background-200: #2d2e48;    /* Cinza azulado escuro */
+  --color-background-300: #393a56;    /* Cinza azulado médio escuro */
+  --color-card: #18192b;              /* Card mais escuro */
+  --color-surface: #23243a;
+  --color-surface-elevated: #2d2e48;
   
   /* === TEXTOS === */
-  --color-text-primary: #f8fafc;
-  --color-text-secondary: #cbd5e1;
-  --color-text-tertiary: #94a3b8;
-  --color-text-muted: #64748b;
-  --color-text-inverse: #0f0f23;
-  --color-text-on-primary: #0f0f23;
+  --color-text-primary: #f4f8fb;      /* Branco quase puro para contraste máximo */
+  --color-text-secondary: #cbd5e1;    /* Cinza claro */
+  --color-text-tertiary: #94a3b8;     /* Cinza médio */
+  --color-text-muted: #64748b;        /* Cinza azulado */
+  --color-text-inverse: #18192b;      /* Para textos em backgrounds claros */
+  --color-text-on-primary: #ffffff;   /* Sempre branco sobre botões primários */
   
   /* === BORDAS === */
-  --color-border-subtle: #252547;
-  --color-border-light: #2d2d55;
+  --color-border-subtle: #23243a;
+  --color-border-light: #2d2e48;
   --color-border-medium: #3d3d6b;
   --color-border-strong: #4d4d7b;
   --color-border-focus: var(--color-primary-500);
@@ -385,6 +384,10 @@ html[data-theme="sunset"] {
 .text-warning { color: var(--color-warning) !important; }
 .text-error { color: var(--color-error) !important; }
 .text-info { color: var(--color-info) !important; }
+.text-success-80 { color: var(--color-success); opacity: 0.8; }
+.text-warning-80 { color: var(--color-warning); opacity: 0.8; }
+.text-error-80 { color: var(--color-error); opacity: 0.8; }
+.text-info-80 { color: var(--color-info); opacity: 0.8; }
 
 .border-success { border-color: var(--color-success) !important; }
 .border-warning { border-color: var(--color-warning) !important; }
@@ -510,6 +513,20 @@ html[data-theme="sunset"] {
 }
 
 .input-field:focus {
+  border-color: var(--color-border-focus);
+  outline: none;
+  box-shadow: 0 0 0 3px rgb(from var(--color-primary-500) r g b / 0.1);
+}
+
+.input-base {
+  background-color: var(--color-card);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--border-radius-lg);
+  color: var(--color-text-primary);
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.input-base:focus {
   border-color: var(--color-border-focus);
   outline: none;
   box-shadow: 0 0 0 3px rgb(from var(--color-primary-500) r g b / 0.1);

@@ -49,7 +49,7 @@ const textSizes = {
 
 export default function CtaButton({
     text,
-    message = "Olá! Gostaria de saber mais sobre os serviços da Agora Vai 360.",
+    message = "Mensagem Call To Action",
     variant = "primary",
     size = "lg",
     primaryIcon = true,
@@ -60,7 +60,10 @@ export default function CtaButton({
     className = ""
 }: CtaButtonProps) {
 
-    // Gerar URL baseado no tipo de contato
+    const action = () => {
+        window.open(generateUrl(), '_blank');
+    }
+
     const generateUrl = () => {
         const phone = contactInfo.whatsapp;
         const url = new URL(`https://wa.me/${phone}`);
@@ -104,7 +107,8 @@ export default function CtaButton({
 
     return (
         <motion.a
-            href={generateUrl()}
+            // href={generateUrl()}
+            onClick={() => { action() }}
             target="_blank"
             rel="noopener noreferrer"
             className={baseClasses}
