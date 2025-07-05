@@ -1,6 +1,5 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
-import CtaButton from "@/components/ui/buttons/CtaButton"
 import MobileMenuButton from "@/components/mobile/MobileMenuButton"
 import MobileMenu from "@/components/mobile/MobileMenu"
 import { contactInfo } from "@/data/contactInfo"

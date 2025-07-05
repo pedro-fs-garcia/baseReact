@@ -1,7 +1,5 @@
-import ComponentsDemo from "@/components/ComponentsDemo";
 import ThemesDemo from "@/components/ThemesDemo";
 import Hero from "@/components/layout/Hero";
-import ThemeSwitcher from "@/components/ui/ThemeSwitcher";
 import UIDemo from "@/components/ui/UIDemo";
 import AlertsDemo from "@/components/ui/alerts/AlertsDemo";
 import BadgesDemo from "@/components/ui/badges/BadgesDemo";
