@@ -47,7 +47,7 @@ export const BaseButton = React.forwardRef<HTMLButtonElement, BaseButtonProps>(
         ref={ref}
         type={props.type || 'button'}
         disabled={disabled || loading}
-        className={`
+        className={`cursor-pointer
           inline-flex items-center justify-center font-semibold transition-all duration-200 select-none
           focus:outline-none focus-ring
           transform hover:-translate-y-1

@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { AlertCircle, CheckCircle, Info, X, XCircle } from 'lucide-react';
+import { AlertCircle, CheckCircle, Info, X, XCircle,  } from 'lucide-react';
 
 interface AlertProps {
-  type?: 'success' | 'warning' | 'error' | 'info';
+  type?: 'success' | 'warning' | 'error' | 'info' |'default';
   title?: string;
   children: React.ReactNode;
   closable?: boolean;
@@ -39,6 +39,13 @@ const alertConfig = {
     border: 'border-info',
     text: 'text-info',
     iconColor: 'text-info'
+  },
+  default: {
+    icon: Info,
+    bg: 'bg-transparent',
+    border: 'border-primary',
+    text: 'text-primary',
+    iconColor: 'text-primary'
   }
 };
 
@@ -73,11 +80,11 @@ export default function Alert({
         exit={{ opacity: 0, y: -10 }}
         transition={{ duration: 0.2 }}
       >
-        <IconComponent 
-          size={20} 
+        <IconComponent
+          size={20}
           className={`flex-shrink-0 mt-0.5 ${config.iconColor}`}
         />
-        
+
         <div className="flex-1 min-w-0">
           {title && (
             <h4 className={`font-medium ${config.text}`}>

@@ -60,7 +60,7 @@ export default function Dropdown({
   };
 
   return (
-    <div className={`relative ${className}`}>
+    <div className={`relative z-100 ${className}`}>
       {label && (
         <label className="block text-sm font-medium text-secondary mb-2">
           {label}

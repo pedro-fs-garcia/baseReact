@@ -6,6 +6,7 @@ import MobileMenu from "@/components/mobile/MobileMenu"
 import { contactInfo } from "@/data/contactInfo"
 import Dropdown from "@/components/ui/inputs/Dropdown"
 import { Sun, Moon, Building2, Leaf, Sunset } from "lucide-react"
+import ThemeSwitcher from "../ui/ThemeSwitcher"
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -84,7 +85,7 @@ export default function Header() {
                   <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-accent to-primary group-hover:w-full transition-all duration-300" />
                 </motion.a>
               ))}
-
+              <ThemeSwitcher></ThemeSwitcher>
               {/* Theme Dropdown */}
               <div className="ml-4 w-36">
                 <Dropdown
@@ -95,11 +96,6 @@ export default function Header() {
                   placeholder="Tema"
                   label={undefined}
                 />
-              </div>
-
-              {/* CTA Buttons */}
-              <div className="flex items-center space-x-3 ml-6">
-                <CtaButton text="Fale Conosco" variant="secondary" size="sm" secondaryIcon={false} />
               </div>
             </nav>
 
